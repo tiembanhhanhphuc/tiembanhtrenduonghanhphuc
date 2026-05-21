@@ -2,72 +2,134 @@
 <html lang="vi">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Sweet Cake Shop</title>
+<title>Tiệm Bánh Hạnh Phúc</title>
 
 <style>
 
-body{
-font-family:Arial;
+*{
+
 margin:0;
-background:#fff6f6;
+padding:0;
+box-sizing:border-box;
+
+}
+
+body{
+
+font-family:Arial,sans-serif;
+background:linear-gradient(
+135deg,
+#FFF5F5,
+#FFE8D6
+);
+
 }
 
 header{
 
-background:#ff7fa8;
-color:white;
-padding:18px;
+background:#FF8FAB;
+padding:20px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
+color:white;
+
+position:sticky;
+
+top:0;
+
 }
 
-h1{
+.logo{
 
-margin:0;
+font-size:32px;
+font-weight:bold;
 
 }
 
-.cart{
+.cartArea{
 
-font-size:20px;
+display:flex;
+gap:10px;
+
+}
+
+button{
+
+border:none;
+cursor:pointer;
+
+}
+
+.cartBtn{
+
+background:white;
+
+padding:10px 15px;
+
+border-radius:10px;
+
 font-weight:bold;
 
 }
 
 .container{
 
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
 padding:30px;
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(250px,1fr)
+);
+
+gap:25px;
 
 }
 
 .card{
 
 background:white;
+
 border-radius:18px;
+
 overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-transition:0.3s;
+
+box-shadow:
+
+0 4px 15px
+
+rgba(0,0,0,0.15);
+
+transition:.3s;
 
 }
 
 .card:hover{
 
-transform:translateY(-8px);
+transform:
+
+translateY(-5px);
 
 }
 
-img{
+.card img{
 
 width:100%;
+
 height:220px;
+
 object-fit:cover;
 
 }
@@ -81,27 +143,98 @@ padding:18px;
 .price{
 
 font-size:22px;
+
+color:#E63946;
+
 font-weight:bold;
-color:#ff4b7d;
+
+margin:10px 0;
 
 }
 
-button{
+.buy{
+
+background:#FF8FAB;
 
 width:100%;
+
 padding:12px;
-border:none;
-background:#ff7fa8;
+
 color:white;
-font-size:16px;
+
 border-radius:8px;
-cursor:pointer;
+
+font-size:16px;
 
 }
 
-button:hover{
+.buy:hover{
 
-background:#ff5f93;
+background:#FF5D8F;
+
+}
+
+.delivery{
+
+background:white;
+
+margin:30px;
+
+padding:25px;
+
+border-radius:18px;
+
+}
+
+.delivery h2{
+
+margin-bottom:15px;
+
+}
+
+input,textarea{
+
+width:100%;
+
+padding:12px;
+
+margin:10px 0;
+
+border:
+
+1px solid #ccc;
+
+border-radius:8px;
+
+}
+
+.order{
+
+background:#28A745;
+
+color:white;
+
+padding:12px;
+
+width:100%;
+
+border-radius:10px;
+
+font-size:16px;
+
+}
+
+footer{
+
+background:#FF8FAB;
+
+padding:20px;
+
+text-align:center;
+
+color:white;
+
+margin-top:30px;
 
 }
 
@@ -113,17 +246,91 @@ background:#ff5f93;
 
 <header>
 
-<h1>Tiệm Bánh Trên Đường Hạnh Phúc</h1>
+<div class="logo">
 
-<div class="cart">
+🍰 Tiệm Bánh Hạnh Phúc
 
-🛒 <span id="cart">0</span>
+</div>
+
+<div class="cartArea">
+
+<button
+class="cartBtn"
+onclick="viewCart()"
+>
+
+🛒 Xem giỏ
+(<span id="count">0</span>)
+
+</button>
+
+<button
+class="cartBtn"
+onclick="clearCart()"
+>
+
+Xóa giỏ
+
+</button>
 
 </div>
 
 </header>
 
-<div class="container" id="products"></div>
+<div
+class="container"
+id="products"
+>
+
+</div>
+
+<div class="delivery">
+
+<h2>
+
+🚚 Thông tin giao hàng
+
+</h2>
+
+<input
+id="name"
+placeholder="Họ tên"
+>
+
+<input
+id="phone"
+placeholder="Số điện thoại"
+>
+
+<textarea
+id="address"
+placeholder="Địa chỉ giao hàng nội thành Đà Nẵng"
+></textarea>
+
+<button
+class="order"
+onclick="checkout()"
+>
+
+Đặt bánh
+
+</button>
+
+</div>
+
+<footer>
+
+📍 Tiệm Bánh Hạnh Phúc
+
+<br><br>
+
+Đà Nẵng
+
+<br>
+
+🚚 Chỉ giao nội thành Đà Nẵng
+
+</footer>
 
 <script>
 
@@ -131,89 +338,113 @@ const cakes=[
 
 {
 
-name:"Cookie Crinkle Socola",
+name:
 
-price:"85.000 VNĐ",
+"Cookie Crinkle Socola",
 
-img:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e"
+price:85000,
 
-},
+img:
 
-{
-
-name:"Cookie Crinkle Red Velvet",
-
-price:"90.000 VNĐ",
-
-img:"https://images.unsplash.com/photo-1551024506-0bccd828d307"
+"https://YOUR_LINK_SOCO"
 
 },
 
 {
 
-name:"Cookie Crinkle Truyền Thống",
+name:
 
-price:"80.000 VNĐ",
+"Cookie Crinkle Red Velvet",
 
-img:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e"
+price:90000,
 
-},
+img:
 
-{
-
-name:"Brownie",
-
-price:"95.000 VNĐ",
-
-img:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c"
+"https://YOUR_LINK_REDVELVET"
 
 },
 
 {
 
-name:"Tiramisu",
+name:
 
-price:"180.000 VNĐ",
+"Cookie Crinkle Truyền Thống",
 
-img:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9"
+price:80000,
+
+img:
+
+"https://YOUR_LINK_TRUYENTHONG"
+
+},
+
+{
+
+name:
+
+"Brownie",
+
+price:95000,
+
+img:
+
+"https://YOUR_LINK_BROWNIE"
 
 }
 
 ]
 
-let count=0;
+const products=
 
-function addCart(){
+document
+.getElementById(
+"products"
+)
 
-count++;
+let cart=[]
 
-document.getElementById("cart").innerText=count;
+cakes.forEach(
 
-}
+cake=>{
 
-const product=document.getElementById("products");
-
-cakes.forEach(cake=>{
-
-product.innerHTML+=`
+products.innerHTML+=`
 
 <div class="card">
 
-<img src="${cake.img}">
+<img
+src="${cake.img}"
+>
 
 <div class="info">
 
-<h3>${cake.name}</h3>
+<h2>
+
+${cake.name}
+
+</h2>
 
 <div class="price">
 
-${cake.price}
+${cake.price.toLocaleString()}
+VNĐ
 
 </div>
 
-<br>
+<button
 
-<button onclick="addCart()">
+class="buy"
+
+onclick=
+
+"addCart(
+
+'${cake.name}',
+
+${cake.price}
+
+)"
+
+>
 
 Thêm vào giỏ
 
@@ -223,9 +454,213 @@ Thêm vào giỏ
 
 </div>
 
-`;
+`
+
+}
+
+)
+
+function addCart(
+
+name,
+
+price
+
+){
+
+cart.push({
+
+name,
+
+price
 
 })
+
+document
+
+.getElementById(
+
+"count"
+
+)
+
+.innerText=
+
+cart.length
+
+}
+
+function viewCart(){
+
+if(
+
+cart.length===0
+
+){
+
+alert(
+
+"Giỏ hàng trống"
+
+)
+
+return
+
+}
+
+let text=""
+
+let total=0
+
+cart.forEach(
+
+item=>{
+
+text+=
+
+item.name+
+
+" - "+
+
+item.price
+.toLocaleString()
+
++" VNĐ\n"
+
+total+=
+
+item.price
+
+}
+
+)
+
+alert(
+
+text+
+
+"\nTổng tiền: "+
+
+total
+.toLocaleString()
+
++" VNĐ"
+
+)
+
+}
+
+function clearCart(){
+
+cart=[]
+
+document
+
+.getElementById(
+
+"count"
+
+)
+
+.innerText=0
+
+alert(
+
+"Đã xóa giỏ hàng"
+
+)
+
+}
+
+function checkout(){
+
+let name=
+
+document
+
+.getElementById(
+
+"name"
+
+)
+
+.value
+
+let phone=
+
+document
+
+.getElementById(
+
+"phone"
+
+)
+
+.value
+
+let address=
+
+document
+
+.getElementById(
+
+"address"
+
+)
+
+.value
+
+.toLowerCase()
+
+if(
+
+cart.length===0
+
+){
+
+alert(
+
+"Chưa có bánh"
+
+)
+
+return
+
+}
+
+if(
+
+!address
+.includes("đà nẵng")
+
+&&
+
+!address
+.includes("da nang")
+
+){
+
+alert(
+
+"Chỉ giao nội thành Đà Nẵng"
+
+)
+
+return
+
+}
+
+alert(
+
+"Cảm ơn "+
+
+name+
+
+"\nĐơn hàng đã được ghi nhận"
+
+)
+
+}
 
 </script>
 
